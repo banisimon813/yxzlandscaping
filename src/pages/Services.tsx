@@ -1,3 +1,4 @@
+import { Phone } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
@@ -29,8 +30,22 @@ const pricingTables = [
       { range: "2 Coats", price: "$1.75 / sq ft" },
     ],
   },
+  {
+    title: "Repair",
+    description: "Professional interlock repair including leveling, replacing damaged stones, and fixing drainage issues.",
+    callForDetails: true,
+  },
+  {
+    title: "Installation",
+    description: "New interlock installation for driveways, walkways, patios, and more — built to last.",
+    callForDetails: true,
+  },
+  {
+    title: "Other Services",
+    description: "Additional landscaping and hardscaping services tailored to your needs.",
+    callForDetails: true,
+  },
 ];
-
 const Services = () => (
   <>
     <Navbar />
@@ -55,22 +70,31 @@ const Services = () => (
               </div>
               <div className="p-6">
                 <p className="mb-6 text-sm text-muted-foreground">{table.description}</p>
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-border">
-                      <th className="pb-3 text-left font-bold">Area / Option</th>
-                      <th className="pb-3 text-right font-bold">Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {table.rows.map((row) => (
-                      <tr key={row.range} className="border-b border-border last:border-0">
-                        <td className="py-3 text-muted-foreground">{row.range}</td>
-                        <td className="py-3 text-right font-heading font-bold text-primary">{row.price}</td>
+                {table.callForDetails ? (
+                  <div className="flex items-center justify-center gap-2 py-4">
+                    <Phone className="h-5 w-5 text-primary" />
+                    <a href="tel:+14165659093" className="font-heading text-lg font-bold text-primary hover:underline">
+                      Call for Details: (416) 565-9093
+                    </a>
+                  </div>
+                ) : (
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="pb-3 text-left font-bold">Area / Option</th>
+                        <th className="pb-3 text-right font-bold">Price</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {table.rows?.map((row) => (
+                        <tr key={row.range} className="border-b border-border last:border-0">
+                          <td className="py-3 text-muted-foreground">{row.range}</td>
+                          <td className="py-3 text-right font-heading font-bold text-primary">{row.price}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
               </div>
             </div>
           ))}

@@ -116,11 +116,11 @@ const Contact = () => {
                       <p className="text-muted-foreground">(416) 565-9093</p>
                     </div>
                   </a>
-                  <a href="mailto:info@yxzlandscaping.com" className="flex items-start gap-3 text-sm hover:text-primary transition-colors">
+                  <a href="mailto:YXZLandscaping@gmail.com" className="flex items-start gap-3 text-sm hover:text-primary transition-colors">
                     <Mail className="mt-0.5 h-5 w-5 text-primary" />
                     <div>
                       <p className="font-bold">Email</p>
-                      <p className="text-muted-foreground">info@yxzlandscaping.com</p>
+                      <p className="text-muted-foreground">YXZLandscaping@gmail.com</p>
                     </div>
                   </a>
                   <div className="flex items-start gap-3 text-sm">

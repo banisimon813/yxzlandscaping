@@ -136,8 +136,8 @@ const Contact = () => {
                   <p className="font-heading text-lg font-bold">Prefer to Call?</p>
                   <p className="mt-1 text-sm text-primary-foreground/80">We're happy to discuss your project over the phone.</p>
                   <Button asChild variant="secondary" className="mt-4 w-full gap-2 font-bold">
-                    <a href="tel:+16471234567">
-                      <Phone className="h-4 w-4" /> (647) 123-4567
+                    <a href="tel:+14165659093">
+                      <Phone className="h-4 w-4" /> (416) 565-9093
                     </a>
                   </Button>
                 </div>

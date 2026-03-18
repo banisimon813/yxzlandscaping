@@ -66,7 +66,7 @@ const Navbar = () => {
             </Link>
           ))}
           <Button asChild className="mt-3 w-full gap-2">
-            <a href="tel:+16471234567">
+            <a href="tel:+14165659093">
               <Phone className="h-4 w-4" /> Call Now
             </a>
           </Button>

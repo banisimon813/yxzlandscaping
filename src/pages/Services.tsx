@@ -29,8 +29,22 @@ const pricingTables = [
       { range: "2 Coats", price: "$1.75 / sq ft" },
     ],
   },
+  {
+    title: "Repair",
+    description: "Professional interlock repair including leveling, replacing damaged stones, and fixing drainage issues.",
+    callForDetails: true,
+  },
+  {
+    title: "Installation",
+    description: "New interlock installation for driveways, walkways, patios, and more — built to last.",
+    callForDetails: true,
+  },
+  {
+    title: "Other Services",
+    description: "Additional landscaping and hardscaping services tailored to your needs.",
+    callForDetails: true,
+  },
 ];
-
 const Services = () => (
   <>
     <Navbar />

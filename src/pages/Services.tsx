@@ -70,22 +70,31 @@ const Services = () => (
               </div>
               <div className="p-6">
                 <p className="mb-6 text-sm text-muted-foreground">{table.description}</p>
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-border">
-                      <th className="pb-3 text-left font-bold">Area / Option</th>
-                      <th className="pb-3 text-right font-bold">Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {table.rows.map((row) => (
-                      <tr key={row.range} className="border-b border-border last:border-0">
-                        <td className="py-3 text-muted-foreground">{row.range}</td>
-                        <td className="py-3 text-right font-heading font-bold text-primary">{row.price}</td>
+                {table.callForDetails ? (
+                  <div className="flex items-center justify-center gap-2 py-4">
+                    <Phone className="h-5 w-5 text-primary" />
+                    <a href="tel:+14165659093" className="font-heading text-lg font-bold text-primary hover:underline">
+                      Call for Details: (416) 565-9093
+                    </a>
+                  </div>
+                ) : (
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="pb-3 text-left font-bold">Area / Option</th>
+                        <th className="pb-3 text-right font-bold">Price</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {table.rows?.map((row) => (
+                        <tr key={row.range} className="border-b border-border last:border-0">
+                          <td className="py-3 text-muted-foreground">{row.range}</td>
+                          <td className="py-3 text-right font-heading font-bold text-primary">{row.price}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
               </div>
             </div>
           ))}

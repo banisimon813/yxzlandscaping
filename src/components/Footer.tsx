@@ -26,8 +26,8 @@ const Footer = () => (
           <a href="tel:+14165659093" className="flex items-center gap-2 hover:text-primary transition-colors">
             <Phone className="h-4 w-4" /> (416) 565-9093
           </a>
-          <a href="mailto:info@yxzlandscaping.com" className="flex items-center gap-2 hover:text-primary transition-colors">
-            <Mail className="h-4 w-4" /> info@yxzlandscaping.com
+          <a href="mailto:YXZLandscaping@gmail.com" className="flex items-center gap-2 hover:text-primary transition-colors">
+            <Mail className="h-4 w-4" /> YXZLandscaping@gmail.com
           </a>
           <span className="flex items-center gap-2">
             <MapPin className="h-4 w-4" /> Serving the GTA & Surrounding Areas

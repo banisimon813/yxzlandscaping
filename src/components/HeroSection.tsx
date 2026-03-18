@@ -26,7 +26,7 @@ const HeroSection = () => (
           </Link>
         </Button>
         <Button asChild variant="outline" size="lg" className="gap-2 text-base font-bold px-8 py-6 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
-          <a href="tel:+16471234567">
+          <a href="tel:+14165659093">
             <Phone className="h-5 w-5" /> Call Now
           </a>
         </Button>

@@ -23,8 +23,8 @@ const Footer = () => (
       <div>
         <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-primary">Contact</h4>
         <div className="flex flex-col gap-3 text-sm text-section-dark-foreground/70">
-          <a href="tel:+16471234567" className="flex items-center gap-2 hover:text-primary transition-colors">
-            <Phone className="h-4 w-4" /> (647) 123-4567
+          <a href="tel:+14165659093" className="flex items-center gap-2 hover:text-primary transition-colors">
+            <Phone className="h-4 w-4" /> (416) 565-9093
           </a>
           <a href="mailto:info@yxzlandscaping.com" className="flex items-center gap-2 hover:text-primary transition-colors">
             <Mail className="h-4 w-4" /> info@yxzlandscaping.com

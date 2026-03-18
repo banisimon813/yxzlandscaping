@@ -22,7 +22,7 @@ const pricingTables = [
     ],
   },
   {
-    title: "Sealer Upcharge",
+    title: "Sealer",
     description: "Protective sealant applied after washing to enhance colour and protect against the elements.",
     rows: [
       { range: "1 Coat", price: "$1.25 / sq ft" },

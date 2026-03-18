@@ -109,7 +109,7 @@ const Contact = () => {
               <div className="rounded-lg border border-border bg-secondary p-8">
                 <h2 className="mb-6 text-xl font-bold">Contact Info</h2>
                 <div className="flex flex-col gap-5">
-                  <a href="tel:+16471234567" className="flex items-start gap-3 text-sm hover:text-primary transition-colors">
+                  <a href="tel:+14165659093" className="flex items-start gap-3 text-sm hover:text-primary transition-colors">
                     <Phone className="mt-0.5 h-5 w-5 text-primary" />
                     <div>
                       <p className="font-bold">Phone</p>

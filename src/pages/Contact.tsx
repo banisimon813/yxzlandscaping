@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { Phone, Mail, MapPin, Send } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { useState, FormEvent } from "react";
+import { Phone, Mail, MapPin, Send, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,9 +17,12 @@ const serviceOptions = [
   "Other",
 ];
 
+const FORMSPREE_URL = "https://formspree.io/f/mwvryalb";
+
 const Contact = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: "", phone: "", email: "", address: "", sqft: "", service: "", message: "",
   });
@@ -29,7 +31,7 @@ const Contact = () => {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.phone.trim() || !form.email.trim()) {
       toast({ title: "Please fill in all required fields", variant: "destructive" });
@@ -37,13 +39,15 @@ const Contact = () => {
     }
     setLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke("send-contact-email", {
-        body: form,
+      const res = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(form),
       });
-      if (error) throw error;
+      if (!res.ok) throw new Error("Submission failed");
+      setSubmitted(true);
       toast({ title: "Quote Request Sent!", description: "We'll get back to you within 24 hours." });
-      setForm({ name: "", phone: "", email: "", address: "", sqft: "", service: "", message: "" });
-    } catch (err: any) {
+    } catch (err) {
       console.error("Submit error:", err);
       toast({ title: "Something went wrong", description: "Please try again or call us directly.", variant: "destructive" });
     } finally {
@@ -68,48 +72,59 @@ const Contact = () => {
           <div className="container grid gap-12 lg:grid-cols-5">
             {/* Form */}
             <div className="lg:col-span-3">
-              <form onSubmit={handleSubmit} className="grid gap-5 sm:grid-cols-2">
-                <div className="sm:col-span-2 md:col-span-1">
-                  <label className="mb-1.5 block text-sm font-semibold">Name *</label>
-                  <Input name="name" value={form.name} onChange={handleChange} placeholder="Your full name" maxLength={100} required />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-semibold">Phone *</label>
-                  <Input name="phone" value={form.phone} onChange={handleChange} placeholder="(647) 000-0000" maxLength={20} required />
-                </div>
-                <div className="sm:col-span-2 md:col-span-1">
-                  <label className="mb-1.5 block text-sm font-semibold">Email *</label>
-                  <Input name="email" type="email" value={form.email} onChange={handleChange} placeholder="you@email.com" maxLength={255} required />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-semibold">Address</label>
-                  <Input name="address" value={form.address} onChange={handleChange} placeholder="Street address" maxLength={200} />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-semibold">Approx. Square Footage</label>
-                  <Input name="sqft" value={form.sqft} onChange={handleChange} placeholder="e.g. 1200" maxLength={10} />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-semibold">Service Needed</label>
-                  <Select value={form.service} onValueChange={(v) => setForm((f) => ({ ...f, service: v }))}>
-                    <SelectTrigger><SelectValue placeholder="Select a service" /></SelectTrigger>
-                    <SelectContent>
-                      {serviceOptions.map((s) => (
-                        <SelectItem key={s} value={s}>{s}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-sm font-semibold">Message</label>
-                  <Textarea name="message" value={form.message} onChange={handleChange} placeholder="Tell us about your project..." rows={4} maxLength={1000} />
-                </div>
-                <div className="sm:col-span-2">
-                  <Button type="submit" size="lg" className="w-full gap-2 font-bold text-base" disabled={loading}>
-                    <Send className="h-5 w-5" /> {loading ? "Sending..." : "Request Free Quote"}
+              {submitted ? (
+                <div className="flex flex-col items-center justify-center gap-4 rounded-lg border border-border bg-secondary p-12 text-center">
+                  <CheckCircle className="h-16 w-16 text-primary" />
+                  <h2 className="text-2xl font-bold">Thank You!</h2>
+                  <p className="text-muted-foreground">Your quote request has been sent. We'll get back to you within 24 hours.</p>
+                  <Button onClick={() => { setSubmitted(false); setForm({ name: "", phone: "", email: "", address: "", sqft: "", service: "", message: "" }); }} variant="outline" className="mt-2">
+                    Send Another Request
                   </Button>
                 </div>
-              </form>
+              ) : (
+                <form onSubmit={handleSubmit} method="POST" action={FORMSPREE_URL} className="grid gap-5 sm:grid-cols-2">
+                  <div className="sm:col-span-2 md:col-span-1">
+                    <label className="mb-1.5 block text-sm font-semibold">Name *</label>
+                    <Input name="name" value={form.name} onChange={handleChange} placeholder="Your full name" maxLength={100} required />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-sm font-semibold">Phone *</label>
+                    <Input name="phone" value={form.phone} onChange={handleChange} placeholder="(647) 000-0000" maxLength={20} required />
+                  </div>
+                  <div className="sm:col-span-2 md:col-span-1">
+                    <label className="mb-1.5 block text-sm font-semibold">Email *</label>
+                    <Input name="email" type="email" value={form.email} onChange={handleChange} placeholder="you@email.com" maxLength={255} required />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-sm font-semibold">Address</label>
+                    <Input name="address" value={form.address} onChange={handleChange} placeholder="Street address" maxLength={200} />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-sm font-semibold">Approx. Square Footage</label>
+                    <Input name="sqft" value={form.sqft} onChange={handleChange} placeholder="e.g. 1200" maxLength={10} />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-sm font-semibold">Service Needed</label>
+                    <Select value={form.service} onValueChange={(v) => setForm((f) => ({ ...f, service: v }))}>
+                      <SelectTrigger><SelectValue placeholder="Select a service" /></SelectTrigger>
+                      <SelectContent>
+                        {serviceOptions.map((s) => (
+                          <SelectItem key={s} value={s}>{s}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label className="mb-1.5 block text-sm font-semibold">Message</label>
+                    <Textarea name="message" value={form.message} onChange={handleChange} placeholder="Tell us about your project..." rows={4} maxLength={1000} />
+                  </div>
+                  <div className="sm:col-span-2">
+                    <Button type="submit" size="lg" className="w-full gap-2 font-bold text-base" disabled={loading}>
+                      <Send className="h-5 w-5" /> {loading ? "Sending..." : "Request Free Quote"}
+                    </Button>
+                  </div>
+                </form>
+              )}
             </div>
 
             {/* Contact Info */}

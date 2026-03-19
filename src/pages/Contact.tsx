@@ -29,19 +29,26 @@ const Contact = () => {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.phone.trim() || !form.email.trim()) {
       toast({ title: "Please fill in all required fields", variant: "destructive" });
       return;
     }
     setLoading(true);
-    // Simulate submission
-    setTimeout(() => {
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: form,
+      });
+      if (error) throw error;
       toast({ title: "Quote Request Sent!", description: "We'll get back to you within 24 hours." });
       setForm({ name: "", phone: "", email: "", address: "", sqft: "", service: "", message: "" });
+    } catch (err: any) {
+      console.error("Submit error:", err);
+      toast({ title: "Something went wrong", description: "Please try again or call us directly.", variant: "destructive" });
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (

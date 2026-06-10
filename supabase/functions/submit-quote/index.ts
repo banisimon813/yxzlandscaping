@@ -104,22 +104,36 @@ serve(async (req) => {
 
     // 3. Create the deal
     const dealName = `${form.name} - ${form.service || "Quote Request"}`;
+    const dealProperties: Record<string, string> = {
+      dealname: dealName,
+      pipeline: pipeline.id,
+      dealstage: stage.id,
+      description: [
+        `Service Needed: ${form.service || "N/A"}`,
+        `Address: ${form.address || "N/A"}`,
+        `Phone: ${form.phone}`,
+        `Email: ${form.email}`,
+        `Sq Ft: ${form.sqft || "N/A"}`,
+        form.message ? `Message: ${form.message}` : "",
+      ].filter(Boolean).join("\n"),
+    };
+    // Map form fields to custom HubSpot deal properties
+    if (form.service) dealProperties.service_type = form.service;
+    if (form.address) dealProperties.job_address = form.address;
+
     const deal = await hs(token, "/crm/v3/objects/deals", {
       method: "POST",
       body: JSON.stringify({
-        properties: {
-          dealname: dealName,
-          pipeline: pipeline.id,
-          dealstage: stage.id,
-          description: [
-            `Service Needed: ${form.service || "N/A"}`,
-            `Address: ${form.address || "N/A"}`,
-            `Phone: ${form.phone}`,
-            `Email: ${form.email}`,
-            `Sq Ft: ${form.sqft || "N/A"}`,
-            form.message ? `Message: ${form.message}` : "",
-          ].filter(Boolean).join("\n"),
-        },
+        properties: dealProperties,
+        associations: [
+          {
+            to: { id: contactId },
+            types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 3 }],
+          },
+        ],
+      }),
+    });
+
         associations: [
           {
             to: { id: contactId },

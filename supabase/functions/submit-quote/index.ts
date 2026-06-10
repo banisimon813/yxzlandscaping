@@ -135,7 +135,41 @@ serve(async (req) => {
       }),
     });
 
-    return new Response(JSON.stringify({ success: true, contactId, dealId: deal.id }), {
+    // 4. Create a follow-up task due in 2 days, assigned to the account owner ("me")
+    let taskId: string | null = null;
+    try {
+      const owners = await hs(token, "/crm/v3/owners?limit=1");
+      const ownerId = owners?.results?.[0]?.id;
+      const dueTimestamp = Date.now() + 2 * 24 * 60 * 60 * 1000;
+
+      const taskProperties: Record<string, string> = {
+        hs_task_subject: "Follow up with lead",
+        hs_task_body: `Follow up on quote request from ${form.name} (${form.phone}, ${form.email}).`,
+        hs_task_status: "NOT_STARTED",
+        hs_task_priority: "HIGH",
+        hs_task_type: "TODO",
+        hs_timestamp: String(dueTimestamp),
+      };
+      if (ownerId) taskProperties.hubspot_owner_id = ownerId;
+
+      const task = await hs(token, "/crm/v3/objects/tasks", {
+        method: "POST",
+        body: JSON.stringify({
+          properties: taskProperties,
+          associations: [
+            // task -> deal
+            { to: { id: deal.id }, types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 216 }] },
+            // task -> contact
+            { to: { id: contactId }, types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 204 }] },
+          ],
+        }),
+      });
+      taskId = task.id;
+    } catch (taskErr) {
+      console.error("Failed to create follow-up task:", taskErr);
+    }
+
+    return new Response(JSON.stringify({ success: true, contactId, dealId: deal.id, taskId }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

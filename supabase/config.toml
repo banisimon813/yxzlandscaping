@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.submit-quote]
 verify_jwt = false
+
+[functions.list-hubspot-pipelines]
+verify_jwt = false

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -17,7 +18,7 @@ const serviceOptions = [
   "Other",
 ];
 
-const FORMSPREE_URL = "https://formspree.io/f/mwvryalb";
+
 
 const Contact = () => {
   const { toast } = useToast();
@@ -39,12 +40,9 @@ const Contact = () => {
     }
     setLoading(true);
     try {
-      const res = await fetch(FORMSPREE_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error("Submission failed");
+      const { data, error } = await supabase.functions.invoke("submit-quote", { body: form });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
       setSubmitted(true);
       toast({ title: "Quote Request Sent!", description: "We'll get back to you within 24 hours." });
     } catch (err) {

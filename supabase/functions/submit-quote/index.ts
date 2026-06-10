@@ -120,20 +120,12 @@ serve(async (req) => {
     // Map form fields to custom HubSpot deal properties
     if (form.service) dealProperties.service_type = form.service;
     if (form.address) dealProperties.job_address = form.address;
+    dealProperties.lead_source = "Website";
 
     const deal = await hs(token, "/crm/v3/objects/deals", {
       method: "POST",
       body: JSON.stringify({
         properties: dealProperties,
-        associations: [
-          {
-            to: { id: contactId },
-            types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 3 }],
-          },
-        ],
-      }),
-    });
-
         associations: [
           {
             to: { id: contactId },

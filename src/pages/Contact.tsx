@@ -80,7 +80,7 @@ const Contact = () => {
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} method="POST" action={FORMSPREE_URL} className="grid gap-5 sm:grid-cols-2">
+                <form onSubmit={handleSubmit} className="grid gap-5 sm:grid-cols-2">
                   <div className="sm:col-span-2 md:col-span-1">
                     <label className="mb-1.5 block text-sm font-semibold">Name *</label>
                     <Input name="name" value={form.name} onChange={handleChange} placeholder="Your full name" maxLength={100} required />

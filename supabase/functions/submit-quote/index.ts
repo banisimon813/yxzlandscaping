@@ -117,8 +117,22 @@ serve(async (req) => {
         form.message ? `Message: ${form.message}` : "",
       ].filter(Boolean).join("\n"),
     };
-    // Map form fields to custom HubSpot deal properties
-    if (form.service) dealProperties.service_type = form.service;
+    // Map website service dropdown -> allowed HubSpot service_type options
+    const SERVICE_TYPE_MAP: Record<string, string> = {
+      "Light Power Washing": "Power Washing",
+      "Power Wash & Sand": "Sanding & Sealing",
+      "Sealing (1 Coat)": "Sanding & Sealing",
+      "Sealing (2 Coats)": "Sanding & Sealing",
+      "Full Restoration": "Sanding & Sealing",
+      "Interlock Repair": "Interlock Repair",
+      "Interlock Installation": "Interlock Installation",
+      "Excavation": "Excavation",
+      "Backyard Renovation": "Backyard Renovation",
+      "Retaining Wall": "Retaining Wall",
+    };
+    if (form.service) {
+      dealProperties.service_type = SERVICE_TYPE_MAP[form.service] ?? "Other";
+    }
     if (form.address) dealProperties.job_address = form.address;
     dealProperties.lead_source = "Website";
 

@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const serviceOptions = [
   "Light Power Washing",
@@ -55,6 +56,11 @@ const Contact = () => {
 
   return (
     <>
+      <SEO
+        title="Contact YXZ Landscaping — Free Interlock Quote GTA"
+        description="Request a free quote for interlock repair, power washing, sanding and sealing in the Greater Toronto Area. We respond within 24 hours."
+        path="/contact"
+      />
       <Navbar />
       <main>
         <section className="bg-primary py-16 text-center text-primary-foreground">
@@ -82,29 +88,29 @@ const Contact = () => {
               ) : (
                 <form onSubmit={handleSubmit} className="grid gap-5 sm:grid-cols-2">
                   <div className="sm:col-span-2 md:col-span-1">
-                    <label className="mb-1.5 block text-sm font-semibold">Name *</label>
-                    <Input name="name" value={form.name} onChange={handleChange} placeholder="Your full name" maxLength={100} required />
+                    <label htmlFor="contact-name" className="mb-1.5 block text-sm font-semibold">Name *</label>
+                    <Input id="contact-name" name="name" value={form.name} onChange={handleChange} placeholder="Your full name" maxLength={100} required />
                   </div>
                   <div>
-                    <label className="mb-1.5 block text-sm font-semibold">Phone *</label>
-                    <Input name="phone" value={form.phone} onChange={handleChange} placeholder="(647) 000-0000" maxLength={20} required />
+                    <label htmlFor="contact-phone" className="mb-1.5 block text-sm font-semibold">Phone *</label>
+                    <Input id="contact-phone" name="phone" value={form.phone} onChange={handleChange} placeholder="(647) 000-0000" maxLength={20} required />
                   </div>
                   <div className="sm:col-span-2 md:col-span-1">
-                    <label className="mb-1.5 block text-sm font-semibold">Email *</label>
-                    <Input name="email" type="email" value={form.email} onChange={handleChange} placeholder="you@email.com" maxLength={255} required />
+                    <label htmlFor="contact-email" className="mb-1.5 block text-sm font-semibold">Email *</label>
+                    <Input id="contact-email" name="email" type="email" value={form.email} onChange={handleChange} placeholder="you@email.com" maxLength={255} required />
                   </div>
                   <div>
-                    <label className="mb-1.5 block text-sm font-semibold">Address</label>
-                    <Input name="address" value={form.address} onChange={handleChange} placeholder="Street address" maxLength={200} />
+                    <label htmlFor="contact-address" className="mb-1.5 block text-sm font-semibold">Address</label>
+                    <Input id="contact-address" name="address" value={form.address} onChange={handleChange} placeholder="Street address" maxLength={200} />
                   </div>
                   <div>
-                    <label className="mb-1.5 block text-sm font-semibold">Approx. Square Footage</label>
-                    <Input name="sqft" value={form.sqft} onChange={handleChange} placeholder="e.g. 1200" maxLength={10} />
+                    <label htmlFor="contact-sqft" className="mb-1.5 block text-sm font-semibold">Approx. Square Footage</label>
+                    <Input id="contact-sqft" name="sqft" value={form.sqft} onChange={handleChange} placeholder="e.g. 1200" maxLength={10} />
                   </div>
                   <div>
-                    <label className="mb-1.5 block text-sm font-semibold">Service Needed</label>
+                    <label id="contact-service-label" className="mb-1.5 block text-sm font-semibold">Service Needed</label>
                     <Select value={form.service} onValueChange={(v) => setForm((f) => ({ ...f, service: v }))}>
-                      <SelectTrigger><SelectValue placeholder="Select a service" /></SelectTrigger>
+                      <SelectTrigger id="contact-service" aria-labelledby="contact-service-label"><SelectValue placeholder="Select a service" /></SelectTrigger>
                       <SelectContent>
                         {serviceOptions.map((s) => (
                           <SelectItem key={s} value={s}>{s}</SelectItem>
@@ -113,8 +119,8 @@ const Contact = () => {
                     </Select>
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="mb-1.5 block text-sm font-semibold">Message</label>
-                    <Textarea name="message" value={form.message} onChange={handleChange} placeholder="Tell us about your project..." rows={4} maxLength={1000} />
+                    <label htmlFor="contact-message" className="mb-1.5 block text-sm font-semibold">Message</label>
+                    <Textarea id="contact-message" name="message" value={form.message} onChange={handleChange} placeholder="Tell us about your project..." rows={4} maxLength={1000} />
                   </div>
                   <div className="sm:col-span-2">
                     <Button type="submit" size="lg" className="w-full gap-2 font-bold text-base" disabled={loading}>

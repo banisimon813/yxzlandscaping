@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
@@ -10,6 +11,11 @@ import CTASection from "@/components/CTASection";
 
 const Index = () => (
   <>
+    <SEO
+      title="YXZ Landscaping — Interlock Restoration & Power Washing GTA"
+      description="Professional interlock repair, power washing, polymeric sanding and sealing across the Greater Toronto Area. Get a free quote today."
+      path="/"
+    />
     <Navbar />
     <main>
       <HeroSection />

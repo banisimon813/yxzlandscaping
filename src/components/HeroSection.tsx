@@ -10,6 +10,9 @@ const HeroSection = () => (
       alt="Beautiful interlock driveway with landscaping"
       className="absolute inset-0 h-full w-full object-cover"
       loading="eager"
+      fetchPriority="high"
+      width={1920}
+      height={1080}
     />
     <div className="absolute inset-0" style={{ background: "var(--hero-overlay)" }} />
     <div className="container relative z-10 py-20 text-center">

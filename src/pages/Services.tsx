@@ -1,4 +1,5 @@
 import { Phone } from "lucide-react";
+import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
@@ -48,6 +49,11 @@ const pricingTables = [
 ];
 const Services = () => (
   <>
+    <SEO
+      title="Services & Pricing — YXZ Landscaping Interlock GTA"
+      description="Transparent pricing for interlock power washing, polymeric sanding, sealing, repair and installation across the Greater Toronto Area."
+      path="/services"
+    />
     <Navbar />
     <main>
       {/* Hero */}

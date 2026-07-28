@@ -1,73 +1,81 @@
-# Welcome to your Lovable project
+# YXZ Landscaping Pros
 
-## Project info
+Create a professional, modern, mobile-responsive website for an interlock repair and landscaping company called "YXZ Landscaping" servicing all across the GTA and surrounding areas.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Purpose:
+Generate leads for interlock repair, power washing, sanding, and sealing services. The primary goal is phone calls and quote requests.
 
-## How can I edit this code?
+Pages & Structure:
+1. Home Page
+- Hero section with strong headline: "Professional Interlock Repair & Restoration Across the GTA"
+- Subheadline emphasizing quality, affordability, and reliability.
+- Call-to-action buttons: "Get a Free Quote" and "Call Now"
+- Brief intro about YXZ Landscaping.
+- Services overview section with pricing highlights.
+- Why Choose Us section (experienced, reliable, competitive pricing, serving GTA and more).
+- Service area section listing GTA coverage.
+- Testimonials section (placeholder content).
+- Contact call-to-action section.
 
-There are several ways of editing your application.
+2. Services Page
+Break down services clearly with pricing tables:
 
-**Use Lovable**
+Light Power Washing:
+- 750 sq ft and below: $1.00 per sq ft
+- 750–2000 sq ft: $0.80 per sq ft
+- 2000+ sq ft: $0.60 per sq ft
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+Power Wash & Sand:
+- Below 1000 sq ft: $1.75 per sq ft
+- 1000+ sq ft: $1.50 per sq ft
 
-Changes made via Lovable will be committed automatically to this repo.
+Sealer Upcharge:
+- 1 coat: $1.25 per sq ft
+- 2 coats: $1.75 per sq ft
 
-**Use your preferred IDE**
+Display pricing in clean, professional pricing tables.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+3. Contact Page
+- Quote request form (Name, Phone, Email, Address, Square Footage, Service Needed, Message)
+- Click-to-call phone button
+- Service area mention (GTA and surrounding areas)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Features:
+- Lead capture form that stores submissions
+- Clean, modern landscaping theme with green, black, and white color palette
+- Mobile-first design
+- SEO-friendly headings and structure
+- Fast-loading layout
+- Simple admin-friendly structure
 
-Follow these steps:
+Design Preferences:
+- Professional, trustworthy look
+- Large bold headings
+- High-quality stock-style landscaping background images (placeholders)
+- Icons for each service
+- Clear CTAs throughout
+
+Do not require user login. This is a marketing website only focused on generating leads.
+
+This project was built with [Lovable](https://lovable.dev).
+
+**Live app**: https://yxzlandscaping.lovable.app
+
+## Build with Lovable
+
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/e470d9d1-b700-4ead-a788-18a1b932e08e).
+
+- **Ship faster**: describe what you want to build and Lovable handles the code.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+
+## Development
+
+Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
+git clone <this-repository-url>
+cd <repository-name>
 npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)

@@ -16,8 +16,8 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="container flex h-16 items-center justify-between md:h-20">
-        <Link to="/" className="font-heading text-xl font-extrabold tracking-tight md:text-2xl">
-          <span className="text-primary">YXZ</span> Landscaping
+        <Link to="/" className="font-heading text-base font-extrabold leading-tight tracking-tight sm:text-lg md:text-2xl">
+          <span className="text-primary">YXZ</span> Landscaping &amp; Hardscaping
         </Link>
 
         {/* Desktop nav */}

@@ -95,12 +95,22 @@ serve(async (req) => {
       }
     }
 
-    // 2. Resolve pipeline + stage by name
+    // 2. Resolve the account owner (so HubSpot notifies them)
+    let ownerId: string | null = null;
+    try {
+      const owners = await hs(token, "/crm/v3/owners?limit=1");
+      ownerId = owners?.results?.[0]?.id ?? null;
+    } catch (ownerErr) {
+      console.error("Failed to resolve HubSpot owner:", ownerErr);
+    }
+
+    // 3. Resolve pipeline + stage by name
     const pipelinesResp = await hs(token, "/crm/v3/pipelines/deals");
     const pipeline = pipelinesResp.results?.find((p: any) => p.label === PIPELINE_NAME);
     if (!pipeline) throw new Error(`Pipeline "${PIPELINE_NAME}" not found in HubSpot`);
     const stage = pipeline.stages?.find((s: any) => s.label === STAGE_NAME);
     if (!stage) throw new Error(`Stage "${STAGE_NAME}" not found in pipeline "${PIPELINE_NAME}"`);
+
 
     // 3. Create the deal
     const dealName = `${form.name} - ${form.service || "Quote Request"}`;

@@ -57,7 +57,7 @@ const Contact = () => {
   return (
     <>
       <SEO
-        title="Contact YXZ Landscaping & Hardscaping — Free Interlock Quote GTA"
+        title="Contact YXZ Landscaping & Hardscaping — Free Quote GTA"
         description="Request a free quote for interlock repair, power washing, sanding and sealing in the Greater Toronto Area. We respond within 24 hours."
         path="/contact"
       />

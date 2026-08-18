@@ -6,7 +6,7 @@ const Footer = () => (
     <div className="container grid gap-10 py-16 md:grid-cols-3">
       <div>
         <h3 className="mb-4 text-xl font-extrabold">
-          <span className="text-primary">YXZ</span> Landscaping
+          <span className="text-primary">YXZ</span> Landscaping &amp; Hardscaping
         </h3>
         <p className="text-sm leading-relaxed text-section-dark-foreground/70">
           Professional interlock repair, power washing, sanding & sealing services across the Greater Toronto Area.
@@ -29,14 +29,14 @@ const Footer = () => (
           <a href="mailto:YXZLandscaping@gmail.com" className="flex items-center gap-2 hover:text-primary transition-colors">
             <Mail className="h-4 w-4" /> YXZLandscaping@gmail.com
           </a>
-          <span className="flex items-center gap-2">
-            <MapPin className="h-4 w-4" /> Serving the GTA & Surrounding Areas
+          <span className="flex items-start gap-2">
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0" /> 9200 Weston Rd, Woodbridge, ON L4H 2P8
           </span>
         </div>
       </div>
     </div>
     <div className="border-t border-section-dark-foreground/10 py-6 text-center text-xs text-section-dark-foreground/50">
-      © {new Date().getFullYear()} YXZ Landscaping. All rights reserved.
+      © {new Date().getFullYear()} YXZ Landscaping &amp; Hardscaping. All rights reserved.
     </div>
   </footer>
 );

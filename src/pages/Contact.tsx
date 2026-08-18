@@ -57,7 +57,7 @@ const Contact = () => {
   return (
     <>
       <SEO
-        title="Contact YXZ Landscaping — Free Interlock Quote GTA"
+        title="Contact YXZ Landscaping & Hardscaping — Free Quote GTA"
         description="Request a free quote for interlock repair, power washing, sanding and sealing in the Greater Toronto Area. We respond within 24 hours."
         path="/contact"
       />
@@ -151,10 +151,11 @@ const Contact = () => {
                     </div>
                   </a>
                   <div className="flex items-start gap-3 text-sm">
-                    <MapPin className="mt-0.5 h-5 w-5 text-primary" />
+                    <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
                     <div>
-                      <p className="font-bold">Service Area</p>
-                      <p className="text-muted-foreground">Greater Toronto Area & Surrounding Communities</p>
+                      <p className="font-bold">Address</p>
+                      <p className="text-muted-foreground">9200 Weston Rd, Woodbridge, ON L4H 2P8</p>
+                      <p className="mt-1 text-muted-foreground">Serving the Greater Toronto Area & surrounding communities</p>
                     </div>
                   </div>
                 </div>

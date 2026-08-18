@@ -3,21 +3,19 @@
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 
-const BASE_URL = "https://gta-interlock-pro.lovable.app";
+const BASE_URL = "https://yxzlandscaping.lovable.app";
 
 interface SitemapEntry {
   path: string;
-  lastmod?: string;
   changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
   priority?: string;
 }
 
-const today = new Date().toISOString().split("T")[0];
-
+// No <lastmod>: the project has no authoritative per-page modification timestamp.
 const entries: SitemapEntry[] = [
-  { path: "/", lastmod: today, changefreq: "weekly", priority: "1.0" },
-  { path: "/services", lastmod: today, changefreq: "weekly", priority: "0.9" },
-  { path: "/contact", lastmod: today, changefreq: "monthly", priority: "0.8" },
+  { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/services", changefreq: "weekly", priority: "0.9" },
+  { path: "/contact", changefreq: "monthly", priority: "0.8" },
 ];
 
 function generateSitemap(entries: SitemapEntry[]) {
@@ -25,7 +23,6 @@ function generateSitemap(entries: SitemapEntry[]) {
     [
       `  <url>`,
       `    <loc>${BASE_URL}${e.path}</loc>`,
-      e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : null,
       e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
       e.priority ? `    <priority>${e.priority}</priority>` : null,
       `  </url>`,

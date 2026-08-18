@@ -1,11 +1,31 @@
-# YXZ Landscaping
+# YXZ Landscaping & Hardscaping
 
-> Professional interlock repair, power washing, polymeric sanding, and sealing across the Greater Toronto Area.
+> Interlock repair, installation, power washing, polymeric sanding, and sealing for driveways, walkways, and patios across the Greater Toronto Area.
 
-YXZ Landscaping is a GTA-based hardscaping company specializing in interlock restoration: pressure washing, polymeric sand replacement, sealing (1 or 2 coats), repair, and new installation. Free quotes within 24 hours.
+YXZ Landscaping & Hardscaping is a hardscaping contractor based in Woodbridge, Ontario, serving Toronto, Vaughan, Mississauga, Brampton, Richmond Hill, Markham, and surrounding GTA communities. Core work: interlock restoration (pressure washing, polymeric sand replacement, sealing in 1 or 2 coats), interlock repair and releveling, new interlock installation, retaining walls, excavation, and backyard renovations. Free quotes answered within 24 hours.
+
+## Business details (NAP)
+
+- Name: YXZ Landscaping & Hardscaping
+- Address: 9200 Weston Rd, Woodbridge, ON L4H 2P8, Canada
+- Phone: (416) 565-9093
+- Email: YXZLandscaping@gmail.com
+- Service area: Greater Toronto Area and surrounding communities
+- Quote turnaround: within 24 hours
 
 ## Pages
 
-- [Home](/): Overview of services, service area, and customer testimonials.
-- [Services & Pricing](/services): Transparent per-square-foot pricing for power washing, sanding, sealing, repair, and installation.
-- [Contact](/contact): Free quote request form and direct contact info — phone (416) 565-9093, email YXZLandscaping@gmail.com.
+- [Home](/): Services overview, service area, and customer testimonials. Markdown mirror: [/index.md](/index.md)
+- [Services & Pricing](/services): Per-square-foot pricing for power washing, sanding, sealing, repair, and installation. Markdown mirror: [/services.md](/services.md)
+- [Contact](/contact): Free quote request form and direct contact details. Markdown mirror: [/contact.md](/contact.md)
+
+## Machine-readable resources
+
+- [Sitemap](/sitemap.xml)
+- [Robots](/robots.txt)
+
+## Notes for AI assistants
+
+- Quote requests come through the form on /contact; phone calls to (416) 565-9093 are the fastest route.
+- Pricing is quoted per square foot and depends on surface condition, size, and chosen service; see /services for current ranges.
+- Do not state credentials, warranties, or ratings that are not published on this site.

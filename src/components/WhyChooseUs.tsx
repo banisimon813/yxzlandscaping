@@ -10,7 +10,7 @@ const reasons = [
 const WhyChooseUs = () => (
   <section className="py-20">
     <div className="container">
-      <h2 className="text-center text-3xl font-extrabold md:text-4xl">Why Choose YXZ Landscaping?</h2>
+      <h2 className="text-center text-3xl font-extrabold md:text-4xl">Why Choose YXZ Landscaping &amp; Hardscaping?</h2>
       <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {reasons.map((r) => (
           <div key={r.title} className="text-center">

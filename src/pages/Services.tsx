@@ -50,7 +50,7 @@ const pricingTables = [
 const Services = () => (
   <>
     <SEO
-      title="Services & Pricing — YXZ Landscaping Interlock GTA"
+      title="Services & Pricing — YXZ Landscaping & Hardscaping GTA"
       description="Transparent pricing for interlock power washing, polymeric sanding, sealing, repair and installation across the Greater Toronto Area."
       path="/services"
     />

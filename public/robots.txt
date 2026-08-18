@@ -15,3 +15,6 @@ Allow: /
 
 Sitemap: https://yxzlandscaping.lovable.app/sitemap.xml
 
+
+# Markdown mirrors for AI crawlers
+# /index.md /services.md /contact.md

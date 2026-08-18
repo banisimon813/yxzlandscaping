@@ -3,7 +3,7 @@
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 
-const BASE_URL = "https://gta-interlock-pro.lovable.app";
+const BASE_URL = "https://yxzlandscaping.lovable.app";
 
 interface SitemapEntry {
   path: string;

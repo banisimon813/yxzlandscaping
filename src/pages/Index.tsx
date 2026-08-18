@@ -12,7 +12,7 @@ import CTASection from "@/components/CTASection";
 const Index = () => (
   <>
     <SEO
-      title="YXZ Landscaping — Interlock Restoration & Power Washing GTA"
+      title="YXZ Landscaping & Hardscaping — Interlock Restoration & Power Washing GTA"
       description="Professional interlock repair, power washing, polymeric sanding and sealing across the Greater Toronto Area. Get a free quote today."
       path="/"
     />

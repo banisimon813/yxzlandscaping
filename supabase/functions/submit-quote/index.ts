@@ -244,7 +244,7 @@ serve(async (req) => {
       console.error("Failed to create follow-up task:", taskErr);
     }
 
-    return new Response(JSON.stringify({ success: true, contactId, dealId: deal.id, taskId }), {
+    return new Response(JSON.stringify({ success: true, contactId, dealId: deal.id, taskId, alertTaskId }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

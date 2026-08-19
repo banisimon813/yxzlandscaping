@@ -104,6 +104,18 @@ serve(async (req) => {
       console.error("Failed to resolve HubSpot owner:", ownerErr);
     }
 
+    // Assign the contact to the owner so HubSpot notifies them
+    if (ownerId) {
+      try {
+        await hs(token, `/crm/v3/objects/contacts/${contactId}`, {
+          method: "PATCH",
+          body: JSON.stringify({ properties: { hubspot_owner_id: ownerId } }),
+        });
+      } catch (assignErr) {
+        console.error("Failed to assign contact owner:", assignErr);
+      }
+    }
+
     // 3. Resolve pipeline + stage by name
     const pipelinesResp = await hs(token, "/crm/v3/pipelines/deals");
     const pipeline = pipelinesResp.results?.find((p: any) => p.label === PIPELINE_NAME);
@@ -145,6 +157,7 @@ serve(async (req) => {
     }
     if (form.address) dealProperties.job_address = form.address;
     dealProperties.lead_source = "Website";
+    if (ownerId) dealProperties.hubspot_owner_id = ownerId;
 
     const deal = await hs(token, "/crm/v3/objects/deals", {
       method: "POST",
@@ -159,12 +172,50 @@ serve(async (req) => {
       }),
     });
 
-    // 4. Create a follow-up task due in 2 days, assigned to the account owner ("me")
+    // 4. Immediate "New website lead" task with a reminder now (triggers HubSpot in-app + email alert)
+    let alertTaskId: string | null = null;
+    try {
+      const now = Date.now();
+      const alertProps: Record<string, string> = {
+        hs_task_subject: `New website lead: ${form.name}`,
+        hs_task_body: [
+          `New quote request from the website.`,
+          `Name: ${form.name}`,
+          `Phone: ${form.phone}`,
+          `Email: ${form.email}`,
+          `Address: ${form.address || "N/A"}`,
+          `Service: ${form.service || "N/A"}`,
+          `Sq Ft: ${form.sqft || "N/A"}`,
+          form.message ? `Message: ${form.message}` : "",
+        ].filter(Boolean).join("\n"),
+        hs_task_status: "NOT_STARTED",
+        hs_task_priority: "HIGH",
+        hs_task_type: "TODO",
+        hs_timestamp: String(now),
+        hs_task_reminders: String(now),
+      };
+      if (ownerId) alertProps.hubspot_owner_id = ownerId;
+
+      const alertTask = await hs(token, "/crm/v3/objects/tasks", {
+        method: "POST",
+        body: JSON.stringify({
+          properties: alertProps,
+          associations: [
+            { to: { id: deal.id }, types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 216 }] },
+            { to: { id: contactId }, types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 204 }] },
+          ],
+        }),
+      });
+      alertTaskId = alertTask.id;
+    } catch (alertErr) {
+      console.error("Failed to create lead alert task:", alertErr);
+    }
+
+    // 5. Create a follow-up task due in 2 days, assigned to the account owner ("me")
     let taskId: string | null = null;
     try {
-      const owners = await hs(token, "/crm/v3/owners?limit=1");
-      const ownerId = owners?.results?.[0]?.id;
       const dueTimestamp = Date.now() + 2 * 24 * 60 * 60 * 1000;
+
 
       const taskProperties: Record<string, string> = {
         hs_task_subject: "Follow up with lead",
@@ -193,7 +244,7 @@ serve(async (req) => {
       console.error("Failed to create follow-up task:", taskErr);
     }
 
-    return new Response(JSON.stringify({ success: true, contactId, dealId: deal.id, taskId }), {
+    return new Response(JSON.stringify({ success: true, contactId, dealId: deal.id, taskId, alertTaskId }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

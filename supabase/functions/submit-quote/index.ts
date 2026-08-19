@@ -7,6 +7,7 @@ const corsHeaders = {
 };
 
 const HS_BASE = "https://api.hubapi.com";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mwvryalb";
 const PIPELINE_NAME = "Landscaping Jobs";
 const STAGE_NAME = "New Lead";
 
@@ -52,6 +53,35 @@ serve(async (req) => {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
+    }
+
+    // Send an immediate email notification through the existing Formspree form.
+    // This remains independent of HubSpot so a CRM permission issue cannot suppress the alert.
+    try {
+      const emailResponse = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          address: form.address || "N/A",
+          sqft: form.sqft || "N/A",
+          service: form.service || "N/A",
+          message: form.message || "N/A",
+          _subject: `New website quote request from ${form.name}`,
+        }),
+      });
+
+      if (!emailResponse.ok) {
+        const emailError = await emailResponse.text();
+        console.error(`Formspree notification failed [${emailResponse.status}]: ${emailError}`);
+      }
+    } catch (emailError) {
+      console.error("Formspree notification failed:", emailError);
     }
 
     const [firstName, ...rest] = form.name.trim().split(/\s+/);

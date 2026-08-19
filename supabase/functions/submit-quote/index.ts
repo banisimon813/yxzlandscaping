@@ -104,6 +104,18 @@ serve(async (req) => {
       console.error("Failed to resolve HubSpot owner:", ownerErr);
     }
 
+    // Assign the contact to the owner so HubSpot notifies them
+    if (ownerId) {
+      try {
+        await hs(token, `/crm/v3/objects/contacts/${contactId}`, {
+          method: "PATCH",
+          body: JSON.stringify({ properties: { hubspot_owner_id: ownerId } }),
+        });
+      } catch (assignErr) {
+        console.error("Failed to assign contact owner:", assignErr);
+      }
+    }
+
     // 3. Resolve pipeline + stage by name
     const pipelinesResp = await hs(token, "/crm/v3/pipelines/deals");
     const pipeline = pipelinesResp.results?.find((p: any) => p.label === PIPELINE_NAME);

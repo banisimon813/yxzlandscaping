@@ -157,6 +157,7 @@ serve(async (req) => {
     }
     if (form.address) dealProperties.job_address = form.address;
     dealProperties.lead_source = "Website";
+    if (ownerId) dealProperties.hubspot_owner_id = ownerId;
 
     const deal = await hs(token, "/crm/v3/objects/deals", {
       method: "POST",

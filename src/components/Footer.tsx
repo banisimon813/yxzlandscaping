@@ -17,6 +17,7 @@ const Footer = () => (
         <nav className="flex flex-col gap-2 text-sm text-section-dark-foreground/70">
           <Link to="/" className="hover:text-primary transition-colors">Home</Link>
           <Link to="/services" className="hover:text-primary transition-colors">Services & Pricing</Link>
+          <Link to="/blog" className="hover:text-primary transition-colors">Blog</Link>
           <Link to="/contact" className="hover:text-primary transition-colors">Get a Quote</Link>
         </nav>
       </div>

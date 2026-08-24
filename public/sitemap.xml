@@ -11,6 +11,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://yxzlandscaping.lovable.app/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://yxzlandscaping.lovable.app/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

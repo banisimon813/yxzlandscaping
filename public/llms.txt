@@ -17,6 +17,7 @@ YXZ Landscaping & Hardscaping is a hardscaping contractor based in Woodbridge, O
 
 - [Home](/): Services overview, service area, and customer testimonials. Markdown mirror: [/index.md](/index.md)
 - [Services & Pricing](/services): Per-square-foot pricing for power washing, sanding, sealing, repair, and installation. Markdown mirror: [/services.md](/services.md)
+- [Blog](/blog): Articles on interlock care, power washing, polymeric sanding, sealing, and hardscaping maintenance in the GTA. Individual posts live at /blog/{slug}.
 - [Contact](/contact): Free quote request form and direct contact details. Markdown mirror: [/contact.md](/contact.md)
 
 ## Machine-readable resources

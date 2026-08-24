@@ -155,16 +155,32 @@ const AdminBlog = () => {
             <p className="mt-3 text-sm text-muted-foreground">
               You're signed in as {session?.user.email}, but this account isn't an admin yet.
             </p>
-            <Button
-              variant="outline"
-              className="mt-6"
-              onClick={async () => {
-                await supabase.auth.signOut();
-                navigate("/auth");
-              }}
-            >
-              Sign out
-            </Button>
+            <div className="mt-6 flex justify-center gap-3">
+              <Button
+                onClick={async () => {
+                  const { data, error } = await supabase.rpc("claim_owner_admin");
+                  if (error) toast.error(error.message);
+                  else if (data) {
+                    toast.success("Admin access granted");
+                    window.location.reload();
+                  } else {
+                    toast.error("This account is not allowed to claim admin access.");
+                  }
+                }}
+              >
+                Enable admin access
+              </Button>
+              <Button
+                variant="outline"
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  navigate("/auth");
+                }}
+              >
+                Sign out
+              </Button>
+            </div>
+
           </div>
         ) : (
           <>

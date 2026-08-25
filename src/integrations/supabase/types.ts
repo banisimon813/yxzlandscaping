@@ -56,6 +56,36 @@ export type Database = {
         }
         Relationships: []
       }
+      service_photos: {
+        Row: {
+          caption: string | null
+          created_at: string
+          id: string
+          service_slug: string
+          sort_order: number
+          storage_path: string
+          updated_at: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          service_slug: string
+          sort_order?: number
+          storage_path: string
+          updated_at?: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          service_slug?: string
+          sort_order?: number
+          storage_path?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

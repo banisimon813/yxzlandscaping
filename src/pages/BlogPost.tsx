@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
 import { supabase } from "@/integrations/supabase/client";
+import { resolveBlogImageUrl } from "@/lib/blogImages";
 
 interface Post {
   title: string;

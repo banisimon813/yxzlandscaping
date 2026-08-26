@@ -70,12 +70,12 @@ const BlogPost = () => {
               <time className="mt-3 block text-sm text-muted-foreground">
                 {formatDate(post.published_at ?? post.created_at)}
               </time>
-              {post.cover_image_url && (
+              {coverUrl && (
                 <img
-                  src={post.cover_image_url}
+                  src={coverUrl}
                   alt={post.title}
-                  loading="lazy"
-                  className="mt-8 w-full rounded-lg object-cover"
+                  fetchPriority="high"
+                  className="mt-8 aspect-[16/9] w-full rounded-lg object-cover"
                 />
               )}
               <div className="mt-8 space-y-5 text-base leading-relaxed text-muted-foreground">

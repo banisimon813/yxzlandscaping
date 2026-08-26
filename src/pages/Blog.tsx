@@ -67,9 +67,9 @@ const Blog = () => {
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {posts.map((post) => (
                   <article key={post.id} className="overflow-hidden rounded-lg border border-border bg-card">
-                    {post.cover_image_url && (
+                    {post.cover_image_url && coverUrls.get(post.cover_image_url) && (
                       <img
-                        src={post.cover_image_url}
+                        src={coverUrls.get(post.cover_image_url)}
                         alt={post.title}
                         loading="lazy"
                         className="h-48 w-full object-cover"

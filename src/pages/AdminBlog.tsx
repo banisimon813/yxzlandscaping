@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
@@ -10,8 +10,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { deleteBlogImage, resolveBlogImageUrl, uploadBlogImage } from "@/lib/blogImages";
 import { toast } from "sonner";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { ImagePlus, Pencil, Plus, Trash2, X } from "lucide-react";
 
 interface Post {
   id: string;
@@ -50,10 +51,38 @@ const AdminBlog = () => {
   const [draft, setDraft] = useState<typeof emptyDraft>(emptyDraft);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [coverPreview, setCoverPreview] = useState<string | null>(null);
+  const [uploadingCover, setUploadingCover] = useState(false);
+  const coverInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!loading && !session) navigate("/auth", { replace: true });
   }, [loading, session, navigate]);
+
+  // Keep the hero image preview in sync with whatever is stored on the draft.
+  useEffect(() => {
+    let active = true;
+    resolveBlogImageUrl(draft.cover_image_url || null).then((url) => {
+      if (active) setCoverPreview(url);
+    });
+    return () => {
+      active = false;
+    };
+  }, [draft.cover_image_url]);
+
+  const handleCoverUpload = async (file: File | undefined) => {
+    if (!file) return;
+    setUploadingCover(true);
+    const { path, error } = await uploadBlogImage(file);
+    setUploadingCover(false);
+    if (coverInput.current) coverInput.current.value = "";
+    if (error || !path) {
+      toast.error(error ?? "Upload failed");
+      return;
+    }
+    setDraft((d) => ({ ...d, cover_image_url: path }));
+    toast.success("Hero image uploaded");
+  };
 
   const loadPosts = () =>
     supabase
@@ -122,6 +151,7 @@ const AdminBlog = () => {
     const { error } = await supabase.from("blog_posts").delete().eq("id", post.id);
     if (error) toast.error(error.message);
     else {
+      await deleteBlogImage(post.cover_image_url);
       toast.success("Post deleted");
       loadPosts();
     }
@@ -223,9 +253,41 @@ const AdminBlog = () => {
                   <Label htmlFor="excerpt">Short summary</Label>
                   <Textarea id="excerpt" rows={2} value={draft.excerpt} onChange={(e) => setDraft({ ...draft, excerpt: e.target.value })} />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="cover">Cover image URL (optional)</Label>
-                  <Input id="cover" value={draft.cover_image_url} onChange={(e) => setDraft({ ...draft, cover_image_url: e.target.value })} />
+                <div className="space-y-3">
+                  <Label htmlFor="cover">Featured / hero image (optional)</Label>
+                  {coverPreview && (
+                    <div className="relative w-full max-w-md overflow-hidden rounded-lg border border-border">
+                      <img src={coverPreview} alt="Hero image preview" className="aspect-[16/9] w-full object-cover" />
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="destructive"
+                        className="absolute right-2 top-2"
+                        aria-label="Remove hero image"
+                        onClick={async () => {
+                          await deleteBlogImage(draft.cover_image_url);
+                          setDraft({ ...draft, cover_image_url: "" });
+                          toast.success("Hero image removed");
+                        }}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  )}
+                  <Input
+                    id="cover"
+                    ref={coverInput}
+                    type="file"
+                    accept="image/*"
+                    disabled={uploadingCover}
+                    onChange={(e) => handleCoverUpload(e.target.files?.[0])}
+                  />
+                  <p className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <ImagePlus className="h-3.5 w-3.5" />
+                    {uploadingCover
+                      ? "Uploading…"
+                      : "JPG or PNG up to 15MB. Wide images (16:9) look best at the top of a post."}
+                  </p>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="content">Content</Label>

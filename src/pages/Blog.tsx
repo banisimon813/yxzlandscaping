@@ -23,14 +23,17 @@ const Blog = () => {
   const [posts, setPosts] = useState<PostSummary[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const [coverUrls, setCoverUrls] = useState<Map<string, string>>(new Map());
+
   useEffect(() => {
     supabase
       .from("blog_posts")
       .select("id, slug, title, excerpt, cover_image_url, published_at, created_at")
       .eq("published", true)
       .order("published_at", { ascending: false, nullsFirst: false })
-      .then(({ data }) => {
+      .then(async ({ data }) => {
         setPosts(data ?? []);
+        setCoverUrls(await resolveBlogImageUrls((data ?? []).map((p) => p.cover_image_url)));
         setLoading(false);
       });
   }, []);

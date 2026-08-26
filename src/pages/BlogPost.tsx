@@ -22,6 +22,7 @@ const formatDate = (d: string) =>
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<Post | null>(null);
+  const [coverUrl, setCoverUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,8 +33,9 @@ const BlogPost = () => {
       .eq("slug", slug)
       .eq("published", true)
       .maybeSingle()
-      .then(({ data }) => {
+      .then(async ({ data }) => {
         setPost(data);
+        setCoverUrl(await resolveBlogImageUrl(data?.cover_image_url ?? null));
         setLoading(false);
       });
   }, [slug]);

@@ -51,10 +51,38 @@ const AdminBlog = () => {
   const [draft, setDraft] = useState<typeof emptyDraft>(emptyDraft);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [coverPreview, setCoverPreview] = useState<string | null>(null);
+  const [uploadingCover, setUploadingCover] = useState(false);
+  const coverInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!loading && !session) navigate("/auth", { replace: true });
   }, [loading, session, navigate]);
+
+  // Keep the hero image preview in sync with whatever is stored on the draft.
+  useEffect(() => {
+    let active = true;
+    resolveBlogImageUrl(draft.cover_image_url || null).then((url) => {
+      if (active) setCoverPreview(url);
+    });
+    return () => {
+      active = false;
+    };
+  }, [draft.cover_image_url]);
+
+  const handleCoverUpload = async (file: File | undefined) => {
+    if (!file) return;
+    setUploadingCover(true);
+    const { path, error } = await uploadBlogImage(file);
+    setUploadingCover(false);
+    if (coverInput.current) coverInput.current.value = "";
+    if (error || !path) {
+      toast.error(error ?? "Upload failed");
+      return;
+    }
+    setDraft((d) => ({ ...d, cover_image_url: path }));
+    toast.success("Hero image uploaded");
+  };
 
   const loadPosts = () =>
     supabase

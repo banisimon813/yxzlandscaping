@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
 import { supabase } from "@/integrations/supabase/client";
+import { resolveBlogImageUrls } from "@/lib/blogImages";
 
 interface PostSummary {
   id: string;

@@ -151,6 +151,7 @@ const AdminBlog = () => {
     const { error } = await supabase.from("blog_posts").delete().eq("id", post.id);
     if (error) toast.error(error.message);
     else {
+      await deleteBlogImage(post.cover_image_url);
       toast.success("Post deleted");
       loadPosts();
     }

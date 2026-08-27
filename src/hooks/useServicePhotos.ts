@@ -9,6 +9,7 @@ export interface ServicePhoto {
   service_slug: string;
   storage_path: string;
   caption: string | null;
+  alt_text: string | null;
   sort_order: number;
   url: string;
 }
@@ -50,6 +51,7 @@ export const useServicePhotos = (slug?: string) => {
         service_slug: p.service_slug,
         storage_path: p.storage_path,
         caption: p.caption,
+        alt_text: p.alt_text,
         sort_order: p.sort_order,
         url: urlByPath.get(p.storage_path) ?? "",
       })),

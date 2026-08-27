@@ -1,8 +1,10 @@
-import { Phone } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
+import { services } from "@/data/services";
 import servicesBg from "@/assets/services-bg.jpg";
 
 const pricingTables = [

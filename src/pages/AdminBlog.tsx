@@ -222,6 +222,9 @@ const AdminBlog = () => {
                     <Plus className="h-4 w-4" /> New Post
                   </Button>
                 )}
+                <Button variant="outline" onClick={() => navigate("/admin/photos")}>
+                  Service photos
+                </Button>
                 <Button
                   variant="outline"
                   onClick={async () => {

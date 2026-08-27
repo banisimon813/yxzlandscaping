@@ -2,6 +2,7 @@
 
 import { writeFileSync } from "fs";
 import { resolve } from "path";
+import { services } from "../src/data/services";
 
 const BASE_URL = "https://yxzlandscaping.lovable.app";
 
@@ -15,6 +16,11 @@ interface SitemapEntry {
 const entries: SitemapEntry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/services", changefreq: "weekly", priority: "0.9" },
+  ...services.map((s) => ({
+    path: `/services/${s.slug}`,
+    changefreq: "monthly" as const,
+    priority: "0.8",
+  })),
   { path: "/blog", changefreq: "weekly", priority: "0.8" },
   { path: "/contact", changefreq: "monthly", priority: "0.8" },
 ];

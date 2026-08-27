@@ -58,6 +58,7 @@ export type Database = {
       }
       service_photos: {
         Row: {
+          alt_text: string | null
           caption: string | null
           created_at: string
           id: string
@@ -67,6 +68,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          alt_text?: string | null
           caption?: string | null
           created_at?: string
           id?: string
@@ -76,12 +78,40 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          alt_text?: string | null
           caption?: string | null
           created_at?: string
           id?: string
           service_slug?: string
           sort_order?: number
           storage_path?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      service_seo: {
+        Row: {
+          created_at: string
+          id: string
+          meta_description: string | null
+          meta_title: string | null
+          service_slug: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          meta_description?: string | null
+          meta_title?: string | null
+          service_slug: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          meta_description?: string | null
+          meta_title?: string | null
+          service_slug?: string
           updated_at?: string
         }
         Relationships: []

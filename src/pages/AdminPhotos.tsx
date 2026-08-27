@@ -16,6 +16,8 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { SERVICE_PHOTO_BUCKET, useServicePhotos } from "@/hooks/useServicePhotos";
+import { saveServiceSeo, useServiceSeo } from "@/hooks/useServiceSeo";
+import { Textarea } from "@/components/ui/textarea";
 import { services } from "@/data/services";
 import { toast } from "sonner";
 import { ArrowDown, ArrowUp, Trash2, Upload } from "lucide-react";
@@ -26,6 +28,7 @@ const AdminPhotos = () => {
   const navigate = useNavigate();
   const { session, isAdmin, loading } = useAdminAuth();
   const { photos, reload } = useServicePhotos();
+  const { get: getSeo, reload: reloadSeo } = useServiceSeo();
   const [slug, setSlug] = useState(services[0].slug);
   const [uploading, setUploading] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
@@ -82,6 +85,18 @@ const AdminPhotos = () => {
     if (fileInput.current) fileInput.current.value = "";
     if (added > 0) {
       toast.success(`${added} photo${added > 1 ? "s" : ""} uploaded`);
+      reload();
+    }
+  };
+
+  const saveAltText = async (id: string, altText: string) => {
+    const { error } = await supabase
+      .from("service_photos")
+      .update({ alt_text: altText.trim() || null })
+      .eq("id", id);
+    if (error) toast.error(error.message);
+    else {
+      toast.success("Alt text saved");
       reload();
     }
   };

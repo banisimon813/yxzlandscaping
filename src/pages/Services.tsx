@@ -107,6 +107,33 @@ const Services = () => (
         </div>
       </section>
 
+      {/* Individual service pages */}
+      <section className="border-t border-border bg-muted/40 py-20">
+        <div className="container">
+          <h2 className="text-center text-3xl font-extrabold md:text-4xl">Explore Each Service</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-muted-foreground">
+            Detailed breakdowns, what's included, and photos of our completed work.
+          </p>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => (
+              <Link
+                key={service.slug}
+                to={`/services/${service.slug}`}
+                className="group flex flex-col rounded-lg border border-border bg-card p-6 transition-colors hover:border-primary"
+              >
+                <h3 className="font-heading text-lg font-bold group-hover:text-primary">{service.name}</h3>
+                <p className="mt-3 flex-1 text-sm text-muted-foreground">{service.short}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-primary">
+                  View details <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+
       <CTASection />
     </main>
     <Footer />
